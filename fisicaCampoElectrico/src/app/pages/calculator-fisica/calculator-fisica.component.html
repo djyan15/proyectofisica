@@ -1,0 +1,96 @@
+<!-- Image and text -->
+<nav class="navbar navbar-dark bg-primary" style="margin-bottom: 37px;">
+    <a class="navbar-brand" href="#">
+        <img src="https://image.flaticon.com/icons/svg/1474/1474364.svg" width="30" height="30" class="d-inline-block align-top" alt=""> Fisica Calculator
+    </a>
+</nav>
+
+
+<div class="container" [formGroup]="problemForm">
+    <h1 class="textcenter">Calculadora Fisica</h1>
+    <div class="row">
+        <div class="col-4">
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Cantidad de cargas</label>
+                <input formControlName="cantidadCarga" type="number" min="2" class="form-control" placeholder="Cantidad de cargas">
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Carga a aplicar la fuerza</label>
+                <select formControlName="cargaFuerza" class="form-control">
+                        <option *ngFor="let num of numList" [value]="num">{{num}}</option>
+                    </select>
+            </div>
+        </div>
+        <div class="col-2" style="margin-top:32.3px;">
+            <div class="row">
+                <div class="col-6">
+
+                    <button type="button" class="btn btn-primary" (click)="agregarCargas()">Agregar</button>
+                </div>
+                <div class="col-6">
+                    <button type="button" class="btn btn-success" (click)="CalcularCampoElectrico()">Calcular</button>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+    <div class="row ">
+        <div class="card col-10 marginb " formArrayName="cargas" *ngIf="ingresar">
+            <div class="card-body " *ngFor="let item of problemForm.get('cargas').controls; index as i">
+                <div class="row" [formGroupName]="i">
+                    <div class="col-4 ">
+                        <div class="form-group ">
+                            <label>Valor de la carga  </label>
+                            <input formControlName="valorCarga" type="text " min="2 " class="form-control " placeholder="Valor de la carga ">
+                        </div>
+                    </div>
+                    <div class="col-6 ">
+                        <label>Coordenadas </label>
+                        <div class="row ">
+                            <div class="col-2 ">
+                                <div class="form-group ">
+                                    <input formControlName="x" type="text " min="2 " class="form-control " placeholder="x ">
+                                </div>
+                            </div>
+                            <div class="col-2 ">
+                                <div class="form-group ">
+                                    <input formControlName="y" type="text " min="2 " class="form-control " placeholder="y ">
+                                </div>
+                            </div>
+                            <div class="col-2 ">
+                                <div class="form-group ">
+                                    <input formControlName="z" type="text " min="2 " class="form-control " placeholder="z ">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="card col-2 marginb" *ngIf="resultado">
+            <div class="card-body ">
+                <h4>Resultados</h4>
+
+                <div>
+                    <label><b>Componente en X: </b></label>
+                    <span>{{Fuerza?.factorx | number : '1.8'}}N</span>
+                    <label><b>Componente en Y:</b> </label>
+                    <span>{{Fuerza?.factory | number : '1.8'}}N</span>
+                    <label><b>Componente en Z:</b> </label>
+                    <span>{{Fuerza?.factorz | number : '1.8'}}N</span>
+                    <label><b>Magnitud de la fuerza:</b> </label>
+                    <span>{{Fuerza?.magnitudFuerza | number : '1.8'}}N</span>
+                </div>
+            </div>
+
+
+
+
+        </div>
+    </div>
